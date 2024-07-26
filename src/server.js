@@ -1,62 +1,65 @@
-// import express from 'express';
-// import pino from 'pino-http';
-// import cors from 'cors';
-// import {env} from './utils/env.js';
-// import {getAllcontacts, getContactById} from './services/contacts.js';
+import express from 'express';
+import pino from 'pino-http';
+import cors from 'cors';
+import { env } from './utils/env.js';
+import { getAllContacts, getContactById } from './services/contacts.js';
 
-// const PORT = Number(env('PORT',8080));
+const PORT = Number(env('PORT', 8081));
 
-// export const startServer = () => {
-//     const app = express();
+export const setupServer = () => {
+  const app = express();
 
-//     app.use(express.json());
-//     app.use(cors());
+  app.use(express.json());
+  app.use(cors());
 
-//     app.use(
-//         pino({
-//             transport: {
-//                 target: 'pino-pretty',
-//             },
-//         }),
-//     );
+  app.use(
+    pino({
+      transport: {
+        target: 'pino-pretty',
+      },
+    }),
+  );
 
-//     app.get('/contacts', async (req, res) => {
-//         const contact = await getAllcontacts();
-//         console.log('contacts:', contacts);
-//         res.status: 200,
-//             message: 'Contacts successfully found!',
-//                 data: contact,
-//     });
-// });
-// app.get('/contacts/:contactId', async (req, res) => {
-//     const { contactId } = req.params;
-//     const contact = await getContactById(contactId);
-//     if (!contact) {
-//         return res.status(404).json({
-//             status: 404,
-//             massage: ` Not found contact with id:${contactId}`,
-//         })
-//     }
-//     res.status(200).json({
-//         status: 200,
-//         massage: ` Succssesfully  found contact with id:${contactId}`
-//     });
-// });
+  app.get('/contacts', async (req, res) => {
+    const contacts = await getAllContacts();
+    console.log('contacts:', contacts);
+    res.status(200).json({
+      status: 200,
+      message: 'Contacts successfully found!',
+      data: contacts,
+    });
+  });
+  app.get('/contacts/:contactId', async (req, res) => {
+    const { contactId } = req.params;
 
-//   app.use('*', (req, res, next) => {
-//     res.status(404).json({
-//       message: 'Not found',
-//     });
-//   });
+    const contact = await getContactById(contactId);
+    if (!contact) {
+      return res.status(404).json({
+        status: 404,
+        massage: ` Not found contact with id:${contactId}`,
+      });
+    }
+    res.status(200).json({
+      status: 200,
+      massage: ` Succssesfully  found contact with id:${contactId}`,
+      data: contact,
+    });
+  });
 
-//   app.use((err, req, res, next) => {
-//     res.status(500).json({
-//       message: 'Something went wrong',
-//       error: err.message,
-//     });
-//   });
+  app.use('*', (req, res, _next) => {
+    res.status(404).json({
+      message: 'Not found',
+    });
+  });
 
-//   app.listen(PORT, () => {
-//     console.log('\x1b[42m%\x1b[0m'`Server is running on port ${PORT}`);
-//   });
-// };
+  app.use((err, req, res, _next) => {
+    res.status(500).json({
+      message: 'Something went wrong',
+      error: err.message,
+    });
+  });
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+};
