@@ -1,9 +1,9 @@
 import mongoose from 'mongoose';
-import { ContactsCollection } from './../models/contact.js';
+import { ContactsCollection } from '../db/models/contact.js';
 
 export const getAllContacts = async () => {
-  const contact = ContactsCollection.find();
-  return contact;
+  const contacts = ContactsCollection.find();
+  return contacts;
 };
 
 export const getContactById = async (contactId) => {
