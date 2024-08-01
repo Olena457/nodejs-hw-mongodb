@@ -8,7 +8,7 @@ const contactsSchema = new Schema(
       type: String,
       required: true,
     },
-    phomeNumber: {
+    phoneNumber: {
       type: String,
       required: true,
     },

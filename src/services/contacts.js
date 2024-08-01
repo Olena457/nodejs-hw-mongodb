@@ -8,10 +8,24 @@ export const getAllContacts = async () => {
 
 export const getContactById = async (contactId) => {
   if (!mongoose.Types.ObjectId.isValid(contactId)) {
-    console.log('\nContact with this ID does not exist!\n');
+    console.log('Contact with this ID does not exist!');
     return null;
   }
 
   const contact = await ContactsCollection.findById(contactId);
   return contact;
+};
+export const addContact = async (payload) => {
+  const contact = ContactsCollection.create(payload);
+  return contact;
+};
+export const patchContact = async (contactId, payload) => {
+  const result = ContactsCollection.findByIdAndUpdate(contactId, payload, {
+    new: true,
+  });
+  return result;
+};
+export const deleteContact = async (contactId) => {
+  const result = ContactsCollection.findByIdAndDelete(contactId);
+  return result;
 };
