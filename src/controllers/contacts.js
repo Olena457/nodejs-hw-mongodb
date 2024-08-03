@@ -34,7 +34,23 @@ export const getContactByIdController = async (req, res, next) => {
 };
 
 export const addContactController = async (req, res) => {
-  const contact = await addContact(req.body);
+  const { name, phoneNumber, email, isFavourite, contactType } = req.body;
+
+  if (!name || !phoneNumber) {
+    res.status(400).json({
+      status: 400,
+      message: 'Name and phone number are required fields.',
+    });
+    return;
+  }
+
+  const contact = await addContact({
+    name,
+    phoneNumber,
+    email,
+    isFavourite,
+    contactType,
+  });
 
   res.status(201).json({
     status: 201,
@@ -45,7 +61,15 @@ export const addContactController = async (req, res) => {
 
 export const patchContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const result = await patchContact(contactId, req.body);
+  const { name, phoneNumber, email, isFavourite, contactType } = req.body;
+
+  const result = await patchContact(contactId, {
+    name,
+    phoneNumber,
+    email,
+    isFavourite,
+    contactType,
+  });
 
   if (!result) {
     next(createHttpError(404, 'Contact not found'));
