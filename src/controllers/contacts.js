@@ -35,13 +35,6 @@ export const getContactByIdController = async (req, res) => {
 export const addContactController = async (req, res) => {
   const { name, phoneNumber, email, isFavourite, contactType } = req.body;
 
-  // if (!name || !phoneNumber) {
-  //   res.status(400).json({
-  //     status: 400,
-  //     message: 'Name and phone number are required fields.',
-  //   });
-  //   return;
-  // }
   if (!name || !phoneNumber) {
     throw createHttpError(400, 'Name and phone number are required fields.');
   }
