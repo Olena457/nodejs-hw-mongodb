@@ -8,13 +8,14 @@ import {
   patchContactController,
   deleteContactController,
 } from './../controllers/contacts.js';
-import { validateBody } from '../middlewares/validateBody.js';
-import { createContactSchema } from '../validation/createContactSchema.js';
+
 import { updateContactSchema } from './../validation/updateContactSchema.js';
+import { createContactSchema } from './../validation/createContactSchema.js';
+import { validateBody } from './../middlewares/validateBody.js';
 import { isValidID } from './../middlewares/isValidId.js';
 
-const router = Router();
 const jsonParser = express.json();
+const router = Router();
 
 router.get('/contacts', ctrlWrapper(getAllContactsController));
 

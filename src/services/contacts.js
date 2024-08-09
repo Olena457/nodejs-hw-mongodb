@@ -1,24 +1,26 @@
-import { SORT_ORDER } from '../db/constants/index.js';
-import mongoose from 'mongoose';
 import { ContactsCollection } from '../db/models/contact.js';
 import { calculatePaginationData } from './../utils/calculatePaginationData.js';
 
 export const getAllContacts = async ({
-  page = 1,
-  perPage = 10,
-  sortOrder = SORT_ORDER.ASC,
-  sortBy = '_id',
-  filter = {},
+  page,
+  perPage,
+  sortOrder,
+  sortBy,
+  filter,
 }) => {
   const limit = perPage;
-  const skip = (page - 1) * perPage;
+  const skip = page > 0 ? (page - 1) * perPage : 0;
+
   const contactsQuery = ContactsCollection.find();
-  if (filter.type) {
-    contactsQuery.where('contactType').equals(filter.type);
+
+  if (filter.contactType) {
+    contactsQuery.where('contactType').equals(filter.contactType);
   }
+
   if (filter.isFavourite) {
     contactsQuery.where('isFavourite').equals(filter.isFavourite);
   }
+
   const [contactsCount, contacts] = await Promise.all([
     ContactsCollection.find().merge(contactsQuery).countDocuments(),
     contactsQuery
@@ -27,6 +29,7 @@ export const getAllContacts = async ({
       .sort({ [sortBy]: sortOrder })
       .exec(),
   ]);
+
   const paginationData = calculatePaginationData(contactsCount, perPage, page);
   return {
     data: contacts,
@@ -35,10 +38,6 @@ export const getAllContacts = async ({
 };
 
 export const getContactById = async (contactId) => {
-  if (!mongoose.Types.ObjectId.isValid(contactId)) {
-    console.log('Contact with this ID does not exist');
-    return null;
-  }
   const contact = await ContactsCollection.findOne({ _id: contactId });
   return contact;
 };

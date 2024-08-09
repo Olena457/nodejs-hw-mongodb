@@ -1,13 +1,41 @@
 import Joi from 'joi';
 
 export const createContactSchema = Joi.object({
-  name: Joi.string().min(3).max(20).required(),
-
-  phoneNumber: Joi.number().integer().min(6).max(20).required(),
-
-  email: Joi.string().email(),
-
-  contactType: Joi.string().valid('work', 'home', 'personal').required(),
-
-  isFavourite: Joi.boolean(),
+  name: Joi.string().min(3).max(20).required().messages({
+    'any.required': 'name is required',
+    'string.base': 'name should be a string',
+    'string.min': 'name should be at least {#limit}',
+    'string.max': 'name should be at most {#limit}',
+  }),
+  phoneNumber: Joi.string()
+    .min(3)
+    .max(20)
+    .pattern(/^[+][0-9]+$/)
+    .required()
+    .messages({
+      'string.pattern.base': 'phoneNumber is required',
+      'string.base':
+        'phoneNumber must includes only numbers and starts with "+"',
+      'string.max': 'phoneNumber should be at most {#limit}',
+      'string.min': 'phoneNumber should be at least {#limit}',
+    }),
+  email: Joi.string().min(3).max(20).email().messages({
+    'string.email': 'Email is not valid',
+    'string.min': 'phoneNumber should be at least {#limit}',
+    'string.max': 'phoneNumber should be at most {#limit}',
+  }),
+  isFavourite: Joi.boolean().messages({
+    'boolean.base': 'isFavourite should be one of [ true, false ]',
+  }),
+  contactType: Joi.string()
+    .min(3)
+    .max(20)
+    .valid('personal', 'work', 'home')
+    .required()
+    .messages({
+      'any.required': 'contactType is required',
+      'any.only': 'contactType must be on of [ personal, work, home ]',
+      'string.min': 'phoneNumber should be at least {#limit}',
+      'string.max': 'phoneNumber should be at most {#limit}',
+    }),
 });
