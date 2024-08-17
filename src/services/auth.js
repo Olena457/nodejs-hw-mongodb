@@ -1,9 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { randomBytes } from 'crypto';
-import { FIFTEEN_MINUTES, ONE_DAY } from './../constants/index';
-import { UserCollection } from './../db/models/users';
-import { SessionsCollections } from './../db/models/sessions';
+import { FIFTEEN_MINUTES, ONE_DAY } from './../constants/index.js';
+import { UserCollection } from './../db/models/users.js';
+import { SessionsCollections } from './../db/models/sessions.js';
 
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
@@ -64,10 +64,8 @@ export const refreshSession = async ({ sessionId, refreshToken }) => {
   if (!session) {
     throw createHttpError(401, 'Session not found');
   }
-  const isSessionTokenExpired =
-    new Date() > new Date(session.refreshTokenValidUntil);
 
-  if (isSessionTokenExpired) {
+  if (new Date() > new Date(session.refreshTokenValidUntil)) {
     throw createHttpError(401, 'Session token expired');
   }
 
