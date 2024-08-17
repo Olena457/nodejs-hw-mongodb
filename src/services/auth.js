@@ -23,11 +23,13 @@ export const loginUser = async (payload) => {
   }
 
   const isEqual = await bcrypt.compare(payload.password, user.password);
+
   if (!isEqual) {
     throw createHttpError(401, 'Unauthorized');
   }
 
   await SessionsCollections.deleteOne({ userId: user._id });
+
   const accessToken = randomBytes(30).toString('base64');
   const refreshToken = randomBytes(30).toString('base64');
 

@@ -43,7 +43,7 @@ async function loginController(req, res) {
 }
 
 async function logoutController(req, res) {
-  if (req.cookies.sessionId) {
+  if (req.cookies.sessionId === 'string') {
     await logoutUser(req.cookies.sessionId);
   }
   res.clearCookie('refreshToken');
