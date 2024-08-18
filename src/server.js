@@ -24,11 +24,11 @@ export const setupServer = () => {
     }),
   );
 
-  app.get('/', (req, res) => {
-    res.json({
-      message: 'Hello user',
-    });
-  });
+  // app.get('/', (req, res) => {
+  //   res.json({
+  //     message: 'Hello user',
+  //   });
+  // });
 
   app.use(router);
 
