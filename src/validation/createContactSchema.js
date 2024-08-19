@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+import { EMAIL_REGEX, PHONE_REGEX } from './../constants/index.js';
+
 export const createContactSchema = Joi.object({
   name: Joi.string().min(3).max(20).required().messages({
     'any.required': 'name is required',
@@ -10,7 +12,7 @@ export const createContactSchema = Joi.object({
   phoneNumber: Joi.string()
     .min(3)
     .max(20)
-    .pattern(/^[+][0-9]+$/)
+    .pattern(PHONE_REGEX)
     .required()
     .messages({
       'string.pattern.base': 'phoneNumber is required',
@@ -19,10 +21,10 @@ export const createContactSchema = Joi.object({
       'string.max': 'phoneNumber should be at most {#limit}',
       'string.min': 'phoneNumber should be at least {#limit}',
     }),
-  email: Joi.string().min(3).max(20).email().messages({
+  email: Joi.string().min(3).max(20).email().pattern(EMAIL_REGEX).messages({
     'string.email': 'Email is not valid',
-    'string.min': 'phoneNumber should be at least {#limit}',
-    'string.max': 'phoneNumber should be at most {#limit}',
+    'string.min': 'Email should be at least {#limit}',
+    'string.max': 'Email should be at most {#limit}',
   }),
   isFavourite: Joi.boolean().messages({
     'boolean.base': 'isFavourite should be one of [ true, false ]',

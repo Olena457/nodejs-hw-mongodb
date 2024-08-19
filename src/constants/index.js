@@ -3,5 +3,10 @@ export const SORT_ORDER = {
   DESC: 'desc',
 };
 
-export const FIFTEEN_MINUTES = 15 * 60 * 60 * 1000;
-export const ONE_DAY = 30 * 24 * 60 * 60 * 1000;
+export const PHONE_REGEX = /^\+\d[0-9]+$/;
+
+export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$/;
+
+export const ACCESS_TIME = 15 * 60 * 60 * 1000;
+
+export const REFRESH_TIME = 30 * 24 * 60 * 60 * 1000;

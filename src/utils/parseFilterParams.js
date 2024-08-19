@@ -14,7 +14,6 @@ function parseIsFavourite(isFavourite) {
     return undefined;
   }
   const isIsFavourite = (isFavourite) =>
-    // [isFavourite === true || isFavourite === false].includes(isFavourite);
     ['true', 'false'].includes(isFavourite);
   if (isIsFavourite(isFavourite)) {
     return isFavourite;

@@ -22,10 +22,10 @@ export const getAllContactsController = async (req, res, next) => {
     sortBy,
     sortOrder,
     filter,
-    userID: req.user._id,
+    userId: req.user._id,
   });
 
-  if (contacts.length === null) {
+  if (contacts.length === 0) {
     return next(createHttpError(404, 'Contacts not found'));
   }
   if (page > contacts.totalPages) {
@@ -45,7 +45,7 @@ export const getContactByIdController = async (req, res) => {
   if (!contact) {
     throw createHttpError(404, 'Contact not found');
   }
-  if (contact.userID.toString() !== req.user._id.toString()) {
+  if (contact.userId.toString() !== req.user._id.toString()) {
     throw createHttpError(404, 'Contact not found');
   }
 
@@ -69,7 +69,7 @@ export const addContactController = async (req, res) => {
     email,
     isFavourite,
     contactType,
-    userID: req.user._id,
+    userId: req.user._id,
   });
 
   res.status(201).json({
@@ -89,7 +89,7 @@ export const patchContactController = async (req, res) => {
     email,
     isFavourite,
     contactType,
-    userID: req.user._id,
+    userId: req.user._id,
   });
 
   if (!result) {

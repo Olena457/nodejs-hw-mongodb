@@ -1,9 +1,12 @@
 import * as bcrypt from 'bcrypt';
+
 import createHttpError from 'http-errors';
 import { randomBytes } from 'crypto';
-import { FIFTEEN_MINUTES, ONE_DAY } from './../constants/index.js';
+
 import { UserCollection } from './../db/models/users.js';
 import { SessionsCollections } from './../db/models/sessions.js';
+
+import { ACCESS_TIME, REFRESH_TIME } from './../constants/index.js';
 
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
@@ -37,8 +40,8 @@ export const loginUser = async (payload) => {
     userId: user._id,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+    accessTokenValidUntil: new Date(Date.now() + ACCESS_TIME),
+    refreshTokenValidUntil: new Date(Date.now() + REFRESH_TIME),
   });
 };
 
@@ -52,8 +55,8 @@ const createSession = () => {
   return {
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
-    refreshTokenValidUntil: new Date(Date.now() + ONE_DAY),
+    accessTokenValidUntil: new Date(Date.now() + ACCESS_TIME),
+    refreshTokenValidUntil: new Date(Date.now() + REFRESH_TIME),
   };
 };
 

@@ -3,19 +3,20 @@ import cors from 'cors';
 import pino from 'pino-http';
 import cookieParser from 'cookie-parser';
 import { env } from './utils/env.js';
-import router from './routers/app.js';
 
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
+import router from './routers/index.js';
 
 const PORT = Number(env('PORT', 8081));
 
 export const setupServer = () => {
   const app = express();
 
-  app.use(express.json({ type: ['application/json'] }));
+  app.use(express.json());
+
   app.use(cors());
-  app.use(cookieParser());
+
   app.use(
     pino({
       transport: {
@@ -24,11 +25,7 @@ export const setupServer = () => {
     }),
   );
 
-  // app.get('/', (req, res) => {
-  //   res.json({
-  //     message: 'Hello user',
-  //   });
-  // });
+  app.use(cookieParser());
 
   app.use(router);
 

@@ -13,9 +13,12 @@ import { updateContactSchema } from './../validation/updateContactSchema.js';
 import { createContactSchema } from './../validation/createContactSchema.js';
 import { validateBody } from './../middlewares/validateBody.js';
 import { isValidID } from './../middlewares/isValidId.js';
+import { authenticate } from './../middlewares/auth.js';
 
 const jsonParser = express.json();
 const router = Router();
+
+router.use(authenticate);
 
 router.get('/contacts', ctrlWrapper(getAllContactsController));
 

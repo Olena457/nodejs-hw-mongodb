@@ -9,21 +9,24 @@ export const updateContactSchema = Joi.object({
   phoneNumber: Joi.string()
     .min(3)
     .max(20)
-    .pattern(/^[+][0-9]+$/)
+    .pattern(/^[0-9]+$/, 'numbers')
     .messages({
       'string.pattern.base':
         'phoneNumber must includes only numbers and starts with "+"',
       'string.min': 'phoneNumber should be at least {#limit}',
       'string.max': 'phoneNumber should be at most {#limit}',
     }),
+
   email: Joi.string().min(3).max(20).email().messages({
     'string.email': 'email is not valid',
     'string.min': 'phoneNumber should be at least {#limit}',
     'string.max': 'phoneNumber should be at most {#limit}',
   }),
+
   isFavourite: Joi.boolean().messages({
     'boolean.base': 'isFavourite should be one of [ true, false ]',
   }),
+
   contactType: Joi.string()
     .min(3)
     .max(20)

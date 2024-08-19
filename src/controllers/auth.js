@@ -1,10 +1,10 @@
+import { REFRESH_TIME } from '../constants/index.js';
 import {
   registerUser,
   loginUser,
   logoutUser,
   refreshSession,
 } from '../services/auth.js';
-import { ONE_DAY } from '../constants/index.js';
 
 async function registerController(req, res) {
   const registeredUser = await registerUser(req.body);
@@ -27,11 +27,11 @@ async function loginController(req, res) {
 
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + REFRESH_TIME),
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + REFRESH_TIME),
   });
   res.json({
     status: 200,
@@ -54,12 +54,12 @@ async function logoutController(req, res) {
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + REFRESH_TIME),
   });
 
   res.cookie('sessionId', session._id, {
     httpOnly: true,
-    expires: new Date(Date.now() + ONE_DAY),
+    expires: new Date(Date.now() + REFRESH_TIME),
   });
 };
 
