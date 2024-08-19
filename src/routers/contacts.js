@@ -12,7 +12,7 @@ import {
 import { updateContactSchema } from './../validation/updateContactSchema.js';
 import { createContactSchema } from './../validation/createContactSchema.js';
 import { validateBody } from './../middlewares/validateBody.js';
-import { isValidID } from './../middlewares/isValidId.js';
+import isValidId from './../middlewares/isValidId.js';
 import { authenticate } from './../middlewares/auth.js';
 
 const jsonParser = express.json();
@@ -22,7 +22,7 @@ router.use(authenticate);
 
 router.get('/', ctrlWrapper(getAllContactsController));
 
-router.get('/:contactId', isValidID, ctrlWrapper(getContactByIdController));
+router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 
 router.post(
   '/',
@@ -38,6 +38,6 @@ router.patch(
   ctrlWrapper(patchContactController),
 );
 
-router.delete('/:contactId', isValidID, ctrlWrapper(deleteContactController));
+router.delete('/:contactId', isValidId, ctrlWrapper(deleteContactController));
 
 export default router;

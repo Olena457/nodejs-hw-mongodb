@@ -11,7 +11,7 @@ import { parseFilterParams } from './../utils/parseFilterParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 
-export const getAllContactsController = async (req, res) => {
+export const getAllContactsController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParams(req.query);
 
   const { sortBy, sortOrder } = parseSortParams(req.query);
@@ -27,14 +27,14 @@ export const getAllContactsController = async (req, res) => {
     filter,
   });
 
-  // if (contacts.length === 0) {
-  //   next(createHttpError(404, 'Contacts not found'));
-  //   return;
-  // }
-  // if (page > contacts.totalPages) {
-  //   next(createHttpError(404, 'Page not found'));
-  //   return;
-  // }
+  if (contacts.length === 0) {
+    next(createHttpError(404, 'Contacts not found'));
+    return;
+  }
+  if (page > contacts.totalPages) {
+    next(createHttpError(404, 'Page not found'));
+    return;
+  }
   res.status(200).json({
     status: res.statusCode,
     message: 'Successfully found contacts!',
@@ -104,7 +104,7 @@ export const patchContactController = async (req, res, next) => {
     return;
   }
 
-  res.ctatus(200).json({
+  res.status(200).json({
     status: 200,
     message: 'Successfully patched a contact',
     data: result.data,
