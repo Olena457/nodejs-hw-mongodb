@@ -3,8 +3,7 @@ const sessionSchema = new Schema(
   {
     userId: {
       type: Schema.Types.ObjectId,
-      required: true,
-      unique: true,
+      ref: 'users',
     },
     accessToken: {
       type: String,
