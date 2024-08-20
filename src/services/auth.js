@@ -4,7 +4,7 @@ import createHttpError from 'http-errors';
 import { randomBytes } from 'crypto';
 
 import { UserCollection } from './../db/models/users.js';
-import { SessionsCollections } from './../db/models/sessions.js';
+import { SessionsCollections } from '../db/models/session.js';
 
 import { ACCESS_TIME, REFRESH_TIME } from './../constants/index.js';
 

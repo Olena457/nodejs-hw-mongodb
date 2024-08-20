@@ -1,4 +1,5 @@
-import express from 'express';
+import { Router } from 'express';
+
 import {
   registerController,
   loginController,
@@ -9,22 +10,21 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import { validateBody } from './../middlewares/validateBody.js';
 import { loginSchema, registerUserSchema } from './../validation/auth.js';
 
-const router = express.Router();
-const jsonParser = express.json();
+const authRouter = Router();
 
-router.post(
+authRouter.post(
   '/register',
-  jsonParser,
+
   validateBody(registerUserSchema),
   ctrlWrapper(registerController),
 );
-router.post(
+authRouter.post(
   '/login',
-  jsonParser,
+
   validateBody(loginSchema),
   ctrlWrapper(loginController),
 );
-router.post('/logout', ctrlWrapper(logoutController));
-router.post('/refresh', ctrlWrapper(refreshSessionController));
+authRouter.post('/refresh', ctrlWrapper(refreshSessionController));
+authRouter.post('/logout', ctrlWrapper(logoutController));
 
-export default router;
+export default authRouter;

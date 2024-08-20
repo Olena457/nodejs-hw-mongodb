@@ -51,10 +51,10 @@ export const getContactByIdController = async (req, res, next) => {
     next(createHttpError(404, 'Contact not found'));
     return;
   }
-  // if (contact.userId.toString() !== req.user._id.toString()) {
-  //   next(createHttpError(404, 'Contact not found'));
-  //   return;
-  // }
+  if (contact.userId.toString() !== req.user._id.toString()) {
+    next(createHttpError(404, 'Contact not found'));
+    return;
+  }
 
   res.json({
     status: res.statusCode,
