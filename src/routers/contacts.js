@@ -9,11 +9,12 @@ import {
   deleteContactController,
 } from './../controllers/contacts.js';
 
-import { updateContactSchema } from './../validation/updateContactSchema.js';
-import { createContactSchema } from './../validation/createContactSchema.js';
 import { validateBody } from './../middlewares/validateBody.js';
 import { isValidId } from './../middlewares/isValidId.js';
 import { authenticate } from './../middlewares/auth.js';
+
+import { updateContactsSchema } from './../validation/updateContactSchema.js';
+import { createContactsSchema } from './../validation/createContactSchema.js';
 
 const router = Router();
 
@@ -26,14 +27,14 @@ router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 router.post(
   '/',
 
-  validateBody(createContactSchema),
+  validateBody(createContactsSchema),
   ctrlWrapper(addContactController),
 );
 
 router.patch(
   '/:contactId',
   isValidId,
-  validateBody(updateContactSchema),
+  validateBody(updateContactsSchema),
   ctrlWrapper(patchContactController),
 );
 
