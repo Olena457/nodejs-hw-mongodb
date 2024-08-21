@@ -49,7 +49,7 @@ const createSession = () => {
   };
 };
 export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
-  console.log('🔎Check session:', { sessionId, refreshToken });
+  console.log('Check session:', { sessionId, refreshToken });
   const session = await SessionsCollections.findOne({
     _id: sessionId,
     refreshToken,
