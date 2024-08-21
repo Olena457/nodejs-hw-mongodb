@@ -1,5 +1,8 @@
 import { model, Schema } from 'mongoose';
 
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const phoneRegex = /^\+\d[0-9]+$/;
+
 const contactsSchema = new Schema(
   {
     name: {
@@ -8,20 +11,21 @@ const contactsSchema = new Schema(
     },
     phoneNumber: {
       type: String,
+      match: [phoneRegex, 'Please fill a valid phone number'],
       required: true,
     },
     email: {
       type: String,
+      match: [emailRegex, 'Please fill a valid email address'],
       required: false,
     },
     isFavourite: {
       type: Boolean,
-      required: true,
+      required: false,
       default: false,
     },
     contactType: {
       type: String,
-      required: true,
       enum: ['work', 'home', 'personal'],
       default: 'personal',
     },
