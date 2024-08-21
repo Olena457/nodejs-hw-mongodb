@@ -15,12 +15,13 @@ export const createContactSchema = Joi.object({
     .pattern(PHONE_REGEX)
     .required()
     .messages({
-      'string.pattern.base': 'phoneNumber is required',
-      'string.base':
-        'phoneNumber must includes only numbers and starts with "+"',
-      'string.max': 'phoneNumber should be at most {#limit}',
-      'string.min': 'phoneNumber should be at least {#limit}',
+      'string.base': 'Phone number is required',
+      'string.pattern.base':
+        'Phone number must include only numbers and start with "+"',
+      'string.max': 'Phone number should be at most {#limit}',
+      'string.min': 'Phone number should be at least {#limit}',
     }),
+
   email: Joi.string().min(3).max(20).email().pattern(EMAIL_REGEX).messages({
     'string.email': 'Email is not valid',
     'string.min': 'Email should be at least {#limit}',
