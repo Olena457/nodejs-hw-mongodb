@@ -3,7 +3,7 @@ import Joi from 'joi';
 import { EMAIL_REGEX, PHONE_REGEX } from './../constants/index.js';
 
 export const createContactSchema = Joi.object({
-  name: Joi.string().min(3).max(20).required().messages({
+  name: Joi.string().min(3).max(20).allow('').required().messages({
     'any.required': 'name is required',
     'string.base': 'name should be a string',
     'string.min': 'name should be at least {#limit}',
@@ -12,6 +12,7 @@ export const createContactSchema = Joi.object({
   phoneNumber: Joi.string()
     .min(3)
     .max(20)
+    .allow('')
     .pattern(PHONE_REGEX)
     .required()
     .messages({
