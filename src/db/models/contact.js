@@ -1,5 +1,5 @@
 import { model, Schema } from 'mongoose';
-import { EMAIL_REGEX, PHONE_REGEX } from '../../constants/index.js';
+import { EMAIL_REGEX } from '../../constants/index.js';
 
 const contactsSchema = new Schema(
   {
@@ -14,7 +14,6 @@ const contactsSchema = new Schema(
     },
     email: {
       type: String,
-      match: [PHONE_REGEX, 'Please fill a valid email address'],
       required: false,
     },
     isFavourite: {
