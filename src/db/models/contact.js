@@ -9,7 +9,7 @@ const contactsSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      // match: [EMAIL_REGEX, 'Please fill a valid phone number'],
+      // match: [PHONE_REGEX, 'Please fill a valid phone number'],
       required: true,
     },
     email: {
