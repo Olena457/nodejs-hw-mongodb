@@ -9,12 +9,12 @@ const contactsSchema = new Schema(
     },
     phoneNumber: {
       type: String,
-      // match: [PHONE_REGEX, 'Please fill a valid phone number'],
       required: true,
     },
     email: {
       type: String,
       required: false,
+      // match: [EMAIL_GEX, 'Please fill a valid phone number'],
     },
     isFavourite: {
       type: Boolean,
