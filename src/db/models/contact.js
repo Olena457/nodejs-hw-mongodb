@@ -25,6 +25,7 @@ const contactsSchema = new Schema(
       type: String,
       enum: ['work', 'home', 'personal'],
       default: 'personal',
+      required: true,
     },
 
     userId: {
