@@ -2,8 +2,8 @@ import bcrypt from 'bcrypt';
 import createHttpError from 'http-errors';
 import { randomBytes } from 'crypto';
 import { ACCESS_TIME, REFRESH_TIME } from './../constants/index.js';
-import { UserCollection } from './../db/models/users.js';
-import { SessionsCollections } from './../db/models/session.js';
+import UserCollection from './../db/models/users.js';
+import SessionsCollections from './../db/models/session.js';
 
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });

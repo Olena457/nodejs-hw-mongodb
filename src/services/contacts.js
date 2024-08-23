@@ -1,4 +1,4 @@
-import { ContactCollection } from '../db/models/contact.js';
+import ContactCollection from '../db/models/contact.js';
 import { calculatePaginationData } from './../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 
@@ -47,8 +47,11 @@ export const getContactById = async (contactId, userId) => {
   return contact;
 };
 
-export const addContact = async (payload) => {
-  const contact = await ContactCollection.create(payload);
+export const addContact = async (payload, userId) => {
+  const contact = await ContactCollection.create({
+    ...payload,
+    userId,
+  });
   return contact;
 };
 
