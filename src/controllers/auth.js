@@ -1,10 +1,12 @@
 import { REFRESH_TIME } from '../constants/index.js';
+
 import {
-  registerUser,
   loginUser,
-  logoutUser,
+  registerUser,
   refreshUsersSession,
-} from '../services/auth.js';
+  sendResetEmail,
+  resetPassword,
+} from './../services/auth.js';
 
 export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
@@ -65,10 +67,29 @@ export const refreshUserController = async (req, res) => {
 
 export const logoutUserController = async (req, res) => {
   if (req.cookies.sessionId) {
-    await logoutUser(req.cookies.sessionId);
+    await logoutUserController(req.cookies.sessionId);
   }
   res.clearCookie('sessionId');
   res.clearCookie('refreshToken');
 
   res.status(204).send();
+};
+export const sendResetEmailController = async (req, res) => {
+  await sendResetEmail(req.body.email);
+
+  res.json({
+    status: 200,
+    message: 'Reset password email has been successfully sent.',
+    data: {},
+  });
+};
+
+export const resetPwdController = async (req, res) => {
+  await resetPassword(req.body);
+
+  res.json({
+    status: 200,
+    message: 'Password has been successfully reset.',
+    data: {},
+  });
 };

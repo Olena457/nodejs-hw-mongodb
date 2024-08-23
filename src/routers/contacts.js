@@ -9,9 +9,10 @@ import {
   deleteContactController,
 } from './../controllers/contacts.js';
 
-import { validateBody } from './../middlewares/validateBody.js';
 import { isValidId } from './../middlewares/isValidId.js';
+import { validateBody } from './../middlewares/validateBody.js';
 import { authenticate } from './../middlewares/auth.js';
+import { upload } from './../middlewares/multer';
 import updateContactsSchema from './../validation/updateContactSchema.js';
 import createContactsSchema from './../validation/createContactSchema.js';
 
@@ -25,12 +26,14 @@ router.get('/:contactId', isValidId, ctrlWrapper(getContactByIdController));
 
 router.post(
   '/',
+  upload.single('photo'),
   validateBody(createContactsSchema),
   ctrlWrapper(addContactController),
 );
 
 router.patch(
   '/:contactId',
+  upload.single('photo'),
   isValidId,
   validateBody(updateContactsSchema),
   ctrlWrapper(patchContactController),

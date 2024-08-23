@@ -1,10 +1,10 @@
 import express from 'express';
-import pino from 'pino-http';
 import cors from 'cors';
+import pino from 'pino-http';
 import { env } from './utils/env.js';
+import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
-import router from './routers/index.js';
 import cookieParser from 'cookie-parser';
 
 const PORT = Number(env('PORT', 8081));
