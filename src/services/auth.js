@@ -86,9 +86,11 @@ export const refreshUsersSession = async ({ sessionId, refreshToken }) => {
     ...newSession,
   });
 };
+
 export const logoutUser = async (sessionId) => {
   await SessionsCollections.deleteOne({ _id: sessionId });
 };
+
 export const sendResetEmail = async (email) => {
   const user = await UserCollection.findOne({ email });
 
@@ -99,11 +101,11 @@ export const sendResetEmail = async (email) => {
   const resetToken = jwt.sign(
     {
       sub: user._id,
-      email,
+      email: user.email,
     },
     env(JWT_SECRET),
     {
-      expiresIn: '5m',
+      expiresIn: '15m',
     },
   );
 

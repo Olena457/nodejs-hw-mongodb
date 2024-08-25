@@ -1,6 +1,5 @@
-import fs from 'fs/promises';
-
-const crateFolderIfNotExist = async (path) => {
+import fs from 'node:fs/promises';
+const createDirIfNotExists = async (path) => {
   try {
     await fs.access(path);
   } catch (err) {
@@ -9,4 +8,4 @@ const crateFolderIfNotExist = async (path) => {
     }
   }
 };
-export default crateFolderIfNotExist;
+export default createDirIfNotExists;
