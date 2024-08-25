@@ -9,10 +9,10 @@ import {
 
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
-import { saveFileToCloudinary } from './../utils/saveFileCloudinary';
-import { parseFilterParams } from './../utils/parseFilterParams';
+import { saveFileToCloudinary } from './../utils/saveFileCloudinary.js';
+import { parseFilterParams } from './../utils/parseFilterParams.js';
 import saveFileToUploadDir from '../utils/createDirIfNotExists.js';
-import { env } from './../utils/env';
+import { env } from './../utils/env.js';
 
 export const getAllContactsController = async (req, res, _next) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -108,7 +108,6 @@ export const patchContactController = async (req, res, next) => {
     data: result.contact,
   });
 };
-
 export const deleteContactController = async (req, res, next) => {
   const userId = req.user._id;
   const { contactId } = req.params;

@@ -1,3 +1,4 @@
+import express from 'express';
 import { Router } from 'express';
 
 import {
@@ -16,15 +17,17 @@ import sendResetEmailSchema from './../validation/sendResetEmailSchema.js';
 import resetPwdSchema from './../validation/resetPwdSchema.js';
 
 const router = Router();
-
+const jsonParser = express.json();
 router.post(
   '/register',
+  jsonParser,
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
 
 router.post(
   '/login',
+  jsonParser,
   validateBody(loginSchema),
   ctrlWrapper(loginUserController),
 );
@@ -34,12 +37,14 @@ router.post('/logout', ctrlWrapper(logoutUserController));
 
 router.post(
   '/send-reset-email',
+  jsonParser,
   validateBody(sendResetEmailSchema),
   ctrlWrapper(sendResetEmailController),
 );
 
 router.post(
   '/reset-pwd',
+  jsonParser,
   validateBody(resetPwdSchema),
   ctrlWrapper(resetPwdController),
 );

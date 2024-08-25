@@ -17,7 +17,7 @@ import {
 
 import UserCollection from './../db/models/users.js';
 import SessionsCollections from './../db/models/session.js';
-import { sendEmail } from './../utils/sendEmail';
+import { sendEmail } from './../utils/sendEmail.js';
 
 export const registerUser = async (payload) => {
   const user = await UserCollection.findOne({ email: payload.email });
