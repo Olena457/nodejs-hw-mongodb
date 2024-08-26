@@ -3,14 +3,14 @@ import { calculatePaginationData } from './../utils/calculatePaginationData.js';
 import { SORT_ORDER } from '../constants/index.js';
 // import mongoose from 'mongoose';
 
-export const getAllContacts = async ({
+export const getAllContacts = async (
   page = 1,
   perPage = 10,
   sortOrder = SORT_ORDER.ASC,
   sortBy = '_id',
   filter = {},
   userId,
-}) => {
+) => {
   try {
     const limit = perPage;
     const skip = (page - 1) * perPage;
@@ -55,27 +55,23 @@ export const getAllContacts = async ({
 //   return contact;
 // };
 
-export const getContactById = async ({ contactId, userId }) => {
+export const getContactById = async (contactId, userId) => {
   const contact = await ContactCollection.findOne({ _id: contactId, userId });
   return contact;
 };
 
 export const addContact = async ({ payload, userId, photo }) => {
-  const contact = await ContactCollection.create({
-    ...payload,
-    userId,
-    photo,
-  });
+  const contact = await ContactCollection.create(...payload, userId, photo);
   return contact;
 };
 
-export const patchContact = async ({
+export const patchContact = async (
   contactId,
   payload,
   userId,
   photo,
   options = {},
-}) => {
+) => {
   const result = await ContactCollection.findOneAndUpdate(
     { _id: contactId, userId },
     { ...payload, photo },
