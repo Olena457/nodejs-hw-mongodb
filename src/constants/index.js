@@ -33,4 +33,4 @@ export const CLOUDINARY = {
   API_SECRET: 'CLOUDINARY_API_SECRET',
 };
 
-export const ENABLE_CLOUDINARY = false;
+export const ENABLE_CLOUDINARY = true;

@@ -12,7 +12,7 @@ const PORT = Number(env('PORT', 8081));
 
 export const setupServer = () => {
   const app = express();
-  // app.use(express.json());
+  app.use(express.json());
   // app.use(express.json({ type: ['application/json'] }));
   app.use(cors());
 
