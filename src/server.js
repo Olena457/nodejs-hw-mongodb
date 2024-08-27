@@ -6,7 +6,7 @@ import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
-// import { UPLOAD_DIR } from './constants/index.js';
+import { UPLOAD_DIR } from './constants/index.js';
 
 const PORT = Number(env('PORT', 8081));
 
@@ -18,7 +18,7 @@ export const setupServer = () => {
 
   app.use(cookieParser());
 
-  // app.use('upload', express.static(UPLOAD_DIR));
+  app.use('upload', express.static(UPLOAD_DIR));
 
   app.use(
     pino({
