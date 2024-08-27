@@ -3,10 +3,6 @@ import { EMAIL_REGEX, PHONE_REGEX } from '../../constants/index.js';
 
 const contactSchema = new Schema(
   {
-    name: {
-      type: String,
-      required: true,
-    },
     phoneNumber: {
       type: String,
       match: [PHONE_REGEX, 'Please fill a valid phone number'],
@@ -14,7 +10,7 @@ const contactSchema = new Schema(
     },
     email: {
       type: String,
-      match: [EMAIL_REGEX, 'Please fill a valid email number'],
+      match: [EMAIL_REGEX, 'Please fill a valid email address'],
       required: false,
     },
     isFavourite: {
@@ -27,9 +23,10 @@ const contactSchema = new Schema(
       enum: ['work', 'home', 'personal'],
       default: 'personal',
     },
-
-    userId: { type: Schema.Types.ObjectId, required: true },
-
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+    },
     photo: {
       type: String,
       default: null,

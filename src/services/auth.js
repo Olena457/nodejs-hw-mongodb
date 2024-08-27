@@ -101,9 +101,10 @@ export const sendResetEmail = async (email) => {
   const resetToken = jwt.sign(
     {
       sub: user._id,
-      email: user.email,
+      email,
+      // email: user.email,
     },
-    env(JWT_SECRET),
+    env('JWT_SECRET'),
     {
       expiresIn: '5m',
     },
@@ -122,7 +123,7 @@ export const sendResetEmail = async (email) => {
 
   const html = template({
     name: user.name,
-    link: `${env(APP_DOMAIN)}/reset-pwd?token=${resetToken}`,
+    link: `${env('APP_DOMAIN')}/reset-pwd?token=${resetToken}`,
   });
 
   try {
@@ -143,17 +144,11 @@ export const sendResetEmail = async (email) => {
 
 export const resetPassword = async (payload) => {
   let entries;
-
   try {
-    entries = jwt.verify(payload.token, env(JWT_SECRET));
+    entries = jwt.verify(payload.token, env('JWT_SECRET'));
   } catch (err) {
-    if (err instanceof Error) {
-      throw createHttpError(
-        401,
-
-        'Token is expired or invalid.',
-      );
-    }
+    if (err instanceof Error)
+      throw createHttpError(401, 'Token is expired or invalid.');
     throw err;
   }
 
@@ -163,15 +158,13 @@ export const resetPassword = async (payload) => {
   });
 
   if (!user) {
-    throw createHttpError(404, 'User not found!');
+    throw createHttpError(404, 'User not found');
   }
-
   const encryptedPassword = await bcrypt.hash(payload.password, 10);
-
   await UserCollection.updateOne(
     { _id: user._id },
     { password: encryptedPassword },
   );
-
-  await SessionsCollections.deleteOne({ userId: user._id });
 };
+
+// await SessionsCollections.deleteOne({ userId: user._id });

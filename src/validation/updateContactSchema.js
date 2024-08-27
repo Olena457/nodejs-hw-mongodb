@@ -10,9 +10,7 @@ const updateContactsSchema = Joi.object({
     'any.required': 'Username is required',
   }),
   phoneNumber: Joi.string().min(3).max(20).pattern(PHONE_REGEX),
-  email: Joi.string()
-    .pattern(EMAIL_REGEX)
-    .email({ tlds: { allow: ['com', 'net'] } }),
+  email: Joi.string().pattern(EMAIL_REGEX).email(),
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
   // photo: Joi.string(),

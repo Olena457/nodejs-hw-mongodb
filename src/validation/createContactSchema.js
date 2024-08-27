@@ -10,11 +10,9 @@ const createContactsSchema = Joi.object({
     'any.required': 'Name should be exists',
   }),
   phoneNumber: Joi.string().pattern(PHONE_REGEX).required(),
-  email: Joi.string()
-    .pattern(EMAIL_REGEX)
-    .email({ tlds: { allow: ['com', 'net'] } }),
+  email: Joi.string().pattern(EMAIL_REGEX).email(),
   isFavourite: Joi.boolean().default(false),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
-  photo: Joi.string(),
+  // photo: Joi.string(),
 });
 export default createContactsSchema;

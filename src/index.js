@@ -9,4 +9,3 @@ const bootstrap = async () => {
   setupServer();
 };
 void bootstrap();
-// bootstrap();

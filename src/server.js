@@ -1,6 +1,6 @@
 import express from 'express';
-import cors from 'cors';
 import pino from 'pino-http';
+import cors from 'cors';
 import { env } from './utils/env.js';
 import router from './routers/index.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
@@ -12,7 +12,7 @@ const PORT = Number(env('PORT', 8081));
 
 export const setupServer = () => {
   const app = express();
-  app.use('uploads', express.static(UPLOAD_DIR));
+  app.use('/uploads', express.static(UPLOAD_DIR));
   app.use(express.json());
   // app.use(express.json({ type: ['application/json'] }));
   app.use(cors());
