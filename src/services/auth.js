@@ -105,7 +105,7 @@ export const sendResetEmail = async (email) => {
     },
     env(JWT_SECRET),
     {
-      expiresIn: '15m',
+      expiresIn: '5m',
     },
   );
 
@@ -124,7 +124,6 @@ export const sendResetEmail = async (email) => {
     name: user.name,
     link: `${env(APP_DOMAIN)}/reset-pwd?token=${resetToken}`,
   });
-  // reset - password
 
   try {
     await sendEmail({

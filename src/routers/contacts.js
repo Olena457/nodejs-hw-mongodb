@@ -18,7 +18,6 @@ import createContactsSchema from './../validation/createContactSchema.js';
 import { upload } from './../middlewares/multer.js';
 
 const router = Router();
-
 router.use(authenticate);
 
 router.get('/', ctrlWrapper(getAllContactsController));

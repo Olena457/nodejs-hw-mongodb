@@ -25,7 +25,7 @@ export const EMAIL_VARS = {
   SMTP_FROM: 'SMTP_FROM',
 };
 
-export const UPLOAD_DIR = path.join(process.cwd(), 'upload');
+export const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
 export const TEMP_UPLOAD_DIR = path.join(process.cwd(), 'tmp');
 
 export const CLOUDINARY = {
