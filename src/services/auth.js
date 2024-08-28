@@ -11,6 +11,8 @@ import {
   REFRESH_TIME,
   EMAIL_VARS,
   TEMPLATES_DIR,
+  JWT_SECRET,
+  APP_DOMAIN,
 } from './../constants/index.js';
 
 import UserCollection from './../db/models/users.js';
@@ -101,7 +103,7 @@ export const sendResetEmail = async (email) => {
       sub: user._id,
       email,
     },
-    env('JWT_SECRET'),
+    env(JWT_SECRET),
     {
       expiresIn: '5m',
     },
@@ -109,7 +111,7 @@ export const sendResetEmail = async (email) => {
 
   const resetPasswordTemplatePath = path.join(
     TEMPLATES_DIR,
-    '/send-reset-email.html',
+    'send-reset-email.html',
   );
 
   const templateSource = (
@@ -120,7 +122,7 @@ export const sendResetEmail = async (email) => {
 
   const html = template({
     name: user.name,
-    link: `${env('APP_DOMAIN')}/reset-pwd?token=${resetToken}`,
+    link: `${env(APP_DOMAIN)}/reset-pwd?token=${resetToken}`,
   });
 
   try {
@@ -142,7 +144,7 @@ export const sendResetEmail = async (email) => {
 export const resetPassword = async (payload) => {
   let entries;
   try {
-    entries = jwt.verify(payload.token, env('JWT_SECRET'));
+    entries = jwt.verify(payload.token, env(JWT_SECRET));
   } catch (err) {
     if (err instanceof Error)
       throw createHttpError(401, 'Token is expired or invalid.');
