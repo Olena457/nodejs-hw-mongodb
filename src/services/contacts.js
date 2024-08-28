@@ -14,7 +14,7 @@ export const getAllContacts = async (
   try {
     const limit = perPage;
     const skip = (page - 1) * perPage;
-    // +userId
+    
     const contactsQuery = ContactCollection.find(userId);
 
     if (filter.contactType) {
@@ -24,8 +24,7 @@ export const getAllContacts = async (
       contactsQuery.where('isFavourite').equals(filter.isFavourite);
     }
 
-    // contactsQuery.where('userId').equals(userId);
-    // 30 userId
+
     const [contactsCount, contacts] = await Promise.all([
       ContactCollection.find(userId).merge(contactsQuery).countDocuments(),
       contactsQuery
@@ -47,24 +46,14 @@ export const getAllContacts = async (
   }
 };
 
-// export const getContactById = async ({ contactId, userId }) => {
-//   if (!mongoose.Types.ObjectId.isValid(contactId)) {
-//     console.log('Student with this ID does not exist!' );
-//     return null;
-//   }
-//   const contact = await ContactCollection.findOne({ _id: contactId, userId });
-//   return contact;
-// };
+
 
 export const getContactById = async (contactId, userId) => {
   const contact = await ContactCollection.findOne({ _id: contactId, userId });
   return contact;
 };
 
-// export const addContact = async ({ payload, userId, photo }) => {
-//   const contact = await ContactCollection.create(...payload, userId, photo);
-//   return contact;
-// };
+
 export const addContact = async (payload) => {
   const contact = await ContactCollection.create(payload);
   return contact;
@@ -81,30 +70,7 @@ export const patchContact = async (contactId, userId, payload) => {
   return result;
 };
 
-// export const patchContact = async (
-//   contactId,
-//   payload,
-//   userId,
-//   photo,
-//   options = {},
-// ) => {
-//   const result = await ContactCollection.findOneAndUpdate(
-//     { _id: contactId, userId },
-//     { ...payload, photo },
-//     {
-//       new: true,
-//       includeResultMetadata: true,
-//       ...options,
-//     },
-//   );
 
-//   if (!result || !result.value) return null;
-
-//   return {
-//     contact: result.value,
-//     isNew: Boolean(result?.lastErrorObject?.upserted),
-//   };
-// };
 
 export const deleteContact = async (contactId, userId) => {
   const contact = await ContactCollection.findOneAndDelete({
