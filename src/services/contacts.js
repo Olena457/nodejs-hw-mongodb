@@ -61,35 +61,50 @@ export const getContactById = async (contactId, userId) => {
   return contact;
 };
 
-export const addContact = async ({ payload, userId, photo }) => {
-  const contact = await ContactCollection.create(...payload, userId, photo);
+// export const addContact = async ({ payload, userId, photo }) => {
+//   const contact = await ContactCollection.create(...payload, userId, photo);
+//   return contact;
+// };
+export const addContact = async (payload) => {
+  const contact = await ContactCollection.create(payload);
   return contact;
 };
-
-export const patchContact = async (
-  contactId,
-  payload,
-  userId,
-  photo,
-  options = {},
-) => {
+export const patchContact = async (contactId, userId, payload) => {
   const result = await ContactCollection.findOneAndUpdate(
     { _id: contactId, userId },
-    { ...payload, photo },
+    payload,
     {
       new: true,
-      includeResultMetadata: true,
-      ...options,
     },
   );
 
-  if (!result || !result.value) return null;
-
-  return {
-    contact: result.value,
-    isNew: Boolean(result?.lastErrorObject?.upserted),
-  };
+  return result;
 };
+
+// export const patchContact = async (
+//   contactId,
+//   payload,
+//   userId,
+//   photo,
+//   options = {},
+// ) => {
+//   const result = await ContactCollection.findOneAndUpdate(
+//     { _id: contactId, userId },
+//     { ...payload, photo },
+//     {
+//       new: true,
+//       includeResultMetadata: true,
+//       ...options,
+//     },
+//   );
+
+//   if (!result || !result.value) return null;
+
+//   return {
+//     contact: result.value,
+//     isNew: Boolean(result?.lastErrorObject?.upserted),
+//   };
+// };
 
 export const deleteContact = async (contactId, userId) => {
   const contact = await ContactCollection.findOneAndDelete({

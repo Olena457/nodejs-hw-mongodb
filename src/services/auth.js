@@ -8,8 +8,6 @@ import createHttpError from 'http-errors';
 import { randomBytes } from 'crypto';
 import {
   ACCESS_TIME,
-  APP_DOMAIN,
-  JWT_SECRET,
   REFRESH_TIME,
   EMAIL_VARS,
   TEMPLATES_DIR,
@@ -102,7 +100,6 @@ export const sendResetEmail = async (email) => {
     {
       sub: user._id,
       email,
-      // email: user.email,
     },
     env('JWT_SECRET'),
     {
