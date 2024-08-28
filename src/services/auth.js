@@ -109,7 +109,7 @@ export const sendResetEmail = async (email) => {
 
   const resetPasswordTemplatePath = path.join(
     TEMPLATES_DIR,
-    'send-reset-email.html',
+    '/send-reset-email.html',
   );
 
   const templateSource = (
