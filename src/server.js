@@ -7,7 +7,7 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import cookieParser from 'cookie-parser';
 import { UPLOAD_DIR } from './constants/index.js';
-
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 const PORT = Number(env('PORT', 8081));
 
 export const setupServer = () => {
@@ -27,6 +27,7 @@ export const setupServer = () => {
   );
 
   app.use(router);
+  app.use('/api-docs', swaggerDocs());
   app.use('*', notFoundHandler);
   app.use(errorHandler);
 
