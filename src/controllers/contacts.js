@@ -12,7 +12,7 @@ import { parseSortParams } from '../utils/parseSortParams.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseFilterParams } from './../utils/parseFilterParams.js';
 import { saveFileToCloudinary } from './../utils/saveFileCloudinary.js';
-import { saveFileToUploadDir } from './../utils/saveFileToUploadDir ';
+import { saveFileToUploadDir } from './../utils/saveFileToUploadDir.js';
 
 export const getAllContactsController = async (req, res, _next) => {
   const { page, perPage } = parsePaginationParams(req.query);
