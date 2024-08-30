@@ -13,6 +13,6 @@ const updateContactsSchema = Joi.object({
   email: Joi.string().pattern(EMAIL_REGEX).email(),
   isFavourite: Joi.boolean(),
   contactType: Joi.string().valid('work', 'home', 'personal'),
-  // photo: Joi.string(),
+  photo: Joi.string(),
 });
 export default updateContactsSchema;
