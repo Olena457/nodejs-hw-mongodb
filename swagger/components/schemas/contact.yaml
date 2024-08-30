@@ -38,4 +38,4 @@ properties:
   photo:
     description: "Link to contact's photo"
     type: string
-    example: <https://res.cloudinary.com/duy4xoo0v/image/upload/v1720102605/l6u2zs1md7m4dmix6okr.webp>
+    example: <https://res.cloudinary.com/dijhimess/image/upload/v1725016550/pdcigve1o7vyupdetken.jpg>
