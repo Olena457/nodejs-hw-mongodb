@@ -1,20 +1,18 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: Contacts app
+  title: Contacts
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  description:
-  This is a documentation of contacts app
+  description: This is a documentation of contacts app
 tags:
-  -name: Contacts
-   description: Operations with contacts.
+  - name: Contacts
+    description: Operations with contacts.
+
 servers:
-  - url: http://localhost:8080
   - url: https://contacts-app-aoek.onrender.com
-
-
+  - url: http://localhost:8080
 paths:
   /contacts/{id}:
     get:
