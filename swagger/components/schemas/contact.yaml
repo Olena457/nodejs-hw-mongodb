@@ -39,3 +39,4 @@ properties:
     description: "Link to contact's photo"
     type: string
     example: <https://res.cloudinary.com/dijhimess/image/upload/v1725016550/pdcigve1o7vyupdetken.jpg>
+    default: null

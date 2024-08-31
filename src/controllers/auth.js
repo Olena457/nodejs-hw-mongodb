@@ -36,15 +36,22 @@ export const loginUserController = async (req, res) => {
     },
   });
 };
-
+// add 2 : sameSite: 'None',
+// secure: true,
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
     expires: new Date(Date.now() + REFRESH_TIME),
+    sameSite: 'None',
+    secure: true,
   });
+
+  //  the same
   res.cookie('sessionId', session._id, {
     httpOnly: true,
     expires: new Date(Date.now() + REFRESH_TIME),
+    sameSite: 'None',
+    secure: true,
   });
 };
 

@@ -11,8 +11,7 @@ tags:
     description: Operations with contacts.
 
 servers:
-  - url: https://contacts-app-aoek.onrender.com
-  - url: http://localhost:8080
+  - url: http://127.0.0.1:8080
 paths:
   /contacts/{id}:
     get:
